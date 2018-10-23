@@ -238,7 +238,7 @@
             this.groupBox1.Controls.Add(this.MetascomboBox1);
             this.groupBox1.Location = new System.Drawing.Point(9, 228);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(396, 235);
+            this.groupBox1.Size = new System.Drawing.Size(396, 285);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Metas";
@@ -249,7 +249,7 @@
             this.DetalledataGridView.Location = new System.Drawing.Point(8, 52);
             this.DetalledataGridView.Name = "DetalledataGridView";
             this.DetalledataGridView.RowTemplate.Height = 24;
-            this.DetalledataGridView.Size = new System.Drawing.Size(381, 233);
+            this.DetalledataGridView.Size = new System.Drawing.Size(381, 199);
             this.DetalledataGridView.TabIndex = 5;
             // 
             // AddButtonClick
@@ -299,9 +299,9 @@
             // 
             // RemoverFilarButton
             // 
-            this.RemoverFilarButton.Location = new System.Drawing.Point(17, 469);
+            this.RemoverFilarButton.Location = new System.Drawing.Point(17, 485);
             this.RemoverFilarButton.Name = "RemoverFilarButton";
-            this.RemoverFilarButton.Size = new System.Drawing.Size(139, 43);
+            this.RemoverFilarButton.Size = new System.Drawing.Size(139, 27);
             this.RemoverFilarButton.TabIndex = 26;
             this.RemoverFilarButton.Text = "Remover Fila";
             this.RemoverFilarButton.UseVisualStyleBackColor = true;

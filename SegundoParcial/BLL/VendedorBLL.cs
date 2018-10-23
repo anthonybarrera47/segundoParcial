@@ -47,11 +47,14 @@ namespace SegundoParcial.BLL
             Contexto db = new Contexto();
             try
             {
-                vendedor.Meta.Count();
                 foreach (var item in Anterior.Meta)
                 {
+                    var cuota = db.Meta.Find(item.MetaID);
                     if (!vendedor.Meta.Exists(d => d.ID == item.ID))
-                        db.Entry(item).State = EntityState.Deleted;
+                    {
+                        cuota.Cuota += item.Cuota;
+                    }
+                    db.Entry(item).State = EntityState.Deleted;
                 }
                 foreach (var item in vendedor.Meta)
                 {
