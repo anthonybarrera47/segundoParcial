@@ -46,10 +46,20 @@
             this.BuscarButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.FechaDataTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.DetalledataGridView = new System.Windows.Forms.DataGridView();
+            this.AddButtonClick = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CuotatextBox = new System.Windows.Forms.TextBox();
+            this.MetasButtonClick = new System.Windows.Forms.Button();
+            this.MetascomboBox1 = new System.Windows.Forms.ComboBox();
+            this.RemoverFilarButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.vendedorIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sueldoNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RetencionPorcentajeNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DetalledataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // vendedorIDLabel
@@ -152,7 +162,7 @@
             // 
             this.EliminarButton.Image = global::SegundoParcial.Properties.Resources.if_cross_24_103181;
             this.EliminarButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.EliminarButton.Location = new System.Drawing.Point(244, 269);
+            this.EliminarButton.Location = new System.Drawing.Point(253, 518);
             this.EliminarButton.Name = "EliminarButton";
             this.EliminarButton.Size = new System.Drawing.Size(75, 62);
             this.EliminarButton.TabIndex = 15;
@@ -165,7 +175,7 @@
             // 
             this.GuardarButton.Image = global::SegundoParcial.Properties.Resources.if_floppy_disk_save_103863;
             this.GuardarButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.GuardarButton.Location = new System.Drawing.Point(128, 269);
+            this.GuardarButton.Location = new System.Drawing.Point(137, 518);
             this.GuardarButton.Name = "GuardarButton";
             this.GuardarButton.Size = new System.Drawing.Size(75, 62);
             this.GuardarButton.TabIndex = 14;
@@ -178,7 +188,7 @@
             // 
             this.NuevoButton.Image = global::SegundoParcial.Properties.Resources.if_new10_216291;
             this.NuevoButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.NuevoButton.Location = new System.Drawing.Point(12, 270);
+            this.NuevoButton.Location = new System.Drawing.Point(21, 519);
             this.NuevoButton.Name = "NuevoButton";
             this.NuevoButton.Size = new System.Drawing.Size(75, 61);
             this.NuevoButton.TabIndex = 13;
@@ -218,11 +228,92 @@
             this.FechaDataTimePicker.Size = new System.Drawing.Size(123, 22);
             this.FechaDataTimePicker.TabIndex = 24;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.DetalledataGridView);
+            this.groupBox1.Controls.Add(this.AddButtonClick);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.CuotatextBox);
+            this.groupBox1.Controls.Add(this.MetasButtonClick);
+            this.groupBox1.Controls.Add(this.MetascomboBox1);
+            this.groupBox1.Location = new System.Drawing.Point(9, 228);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(396, 235);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Metas";
+            // 
+            // DetalledataGridView
+            // 
+            this.DetalledataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DetalledataGridView.Location = new System.Drawing.Point(8, 52);
+            this.DetalledataGridView.Name = "DetalledataGridView";
+            this.DetalledataGridView.RowTemplate.Height = 24;
+            this.DetalledataGridView.Size = new System.Drawing.Size(381, 233);
+            this.DetalledataGridView.TabIndex = 5;
+            // 
+            // AddButtonClick
+            // 
+            this.AddButtonClick.Location = new System.Drawing.Point(336, 18);
+            this.AddButtonClick.Name = "AddButtonClick";
+            this.AddButtonClick.Size = new System.Drawing.Size(53, 23);
+            this.AddButtonClick.TabIndex = 4;
+            this.AddButtonClick.Text = "Add";
+            this.AddButtonClick.UseVisualStyleBackColor = true;
+            this.AddButtonClick.Click += new System.EventHandler(this.AddButtonClick_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(179, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 17);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Cuota";
+            // 
+            // CuotatextBox
+            // 
+            this.CuotatextBox.Location = new System.Drawing.Point(230, 19);
+            this.CuotatextBox.Name = "CuotatextBox";
+            this.CuotatextBox.Size = new System.Drawing.Size(100, 22);
+            this.CuotatextBox.TabIndex = 2;
+            // 
+            // MetasButtonClick
+            // 
+            this.MetasButtonClick.Location = new System.Drawing.Point(135, 22);
+            this.MetasButtonClick.Name = "MetasButtonClick";
+            this.MetasButtonClick.Size = new System.Drawing.Size(30, 23);
+            this.MetasButtonClick.TabIndex = 1;
+            this.MetasButtonClick.Text = "+";
+            this.MetasButtonClick.UseVisualStyleBackColor = true;
+            this.MetasButtonClick.Click += new System.EventHandler(this.MetasButtonClick_Click);
+            // 
+            // MetascomboBox1
+            // 
+            this.MetascomboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MetascomboBox1.FormattingEnabled = true;
+            this.MetascomboBox1.Location = new System.Drawing.Point(8, 21);
+            this.MetascomboBox1.Name = "MetascomboBox1";
+            this.MetascomboBox1.Size = new System.Drawing.Size(121, 24);
+            this.MetascomboBox1.TabIndex = 0;
+            // 
+            // RemoverFilarButton
+            // 
+            this.RemoverFilarButton.Location = new System.Drawing.Point(17, 469);
+            this.RemoverFilarButton.Name = "RemoverFilarButton";
+            this.RemoverFilarButton.Size = new System.Drawing.Size(139, 43);
+            this.RemoverFilarButton.TabIndex = 26;
+            this.RemoverFilarButton.Text = "Remover Fila";
+            this.RemoverFilarButton.UseVisualStyleBackColor = true;
+            this.RemoverFilarButton.Click += new System.EventHandler(this.RemoverFilarButton_Click);
+            // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 352);
+            this.ClientSize = new System.Drawing.Size(450, 592);
+            this.Controls.Add(this.RemoverFilarButton);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FechaDataTimePicker);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.retencionPorcentajeLabel);
@@ -249,6 +340,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.sueldoNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RetencionPorcentajeNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DetalledataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,5 +367,13 @@
         private System.Windows.Forms.Label sueldoLabel;
         private System.Windows.Forms.Label retencionCalculoLabel;
         private System.Windows.Forms.Label retencionPorcentajeLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button MetasButtonClick;
+        private System.Windows.Forms.ComboBox MetascomboBox1;
+        private System.Windows.Forms.TextBox CuotatextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button AddButtonClick;
+        private System.Windows.Forms.DataGridView DetalledataGridView;
+        private System.Windows.Forms.Button RemoverFilarButton;
     }
 }

@@ -54,8 +54,11 @@
   <ItemGroup>
     <Compile Include="BLL\IRepository.cs" />
     <Compile Include="BLL\RepositorioBase.cs" />
+    <Compile Include="BLL\VendedorBLL.cs" />
     <Compile Include="DAL\Contexto.cs" />
+    <Compile Include="Entidades\Metas.cs" />
     <Compile Include="Entidades\Vendedor.cs" />
+    <Compile Include="Entidades\VendedorDetalle.cs" />
     <Compile Include="UI\Consultas\ConsultarVendedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +70,12 @@
     </Compile>
     <Compile Include="UI\Registros\Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Registros\RegistroDeMetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Registros\RegistroDeMetas.Designer.cs">
+      <DependentUpon>RegistroDeMetas.cs</DependentUpon>
     </Compile>
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
@@ -91,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Registros\Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Registros\RegistroDeMetas.resx">
+      <DependentUpon>RegistroDeMetas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

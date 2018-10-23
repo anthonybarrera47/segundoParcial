@@ -14,10 +14,12 @@ namespace SegundoParcial.UI.Registros
 {
     public partial class Registro : Form
     {
-        RepositorioBase<Vendedor> repositorio;
+        public List<VendedorDetalle> Detalle { get; set; }
         public Registro()
         {
             InitializeComponent();
+            this.Detalle = new List<VendedorDetalle>();
+            LlenaComboBox();
         }
         private void Limpiar()
         {
@@ -28,6 +30,8 @@ namespace SegundoParcial.UI.Registros
             RetencionPorcentajeNumericUpDown.Value = Convert.ToDecimal(0);
             retencionCalculoTextBox.Text = string.Empty;
             FechaDataTimePicker.Value = DateTime.Now;
+            this.Detalle = new List<VendedorDetalle>();
+            CargarGrid();
         }
 
         private void NuevoButton_Click(object sender, EventArgs e)
@@ -43,9 +47,16 @@ namespace SegundoParcial.UI.Registros
                 Sueldo = Convert.ToDouble(sueldoNumericUpDown.Value),
                 RetencionPorcentaje = Convert.ToSingle(RetencionPorcentajeNumericUpDown.Value),
                 RetencionCalculo = retencionCalculoTextBox.Text,
-                Fecha = FechaDataTimePicker.Value
+                Fecha = FechaDataTimePicker.Value,
+                Meta = this.Detalle
+                
             };
             return vendedor;
+        }
+        private void CargarGrid()
+        {
+            DetalledataGridView.DataSource = null;
+            DetalledataGridView.DataSource = this.Detalle;
         }
         private void LlenaCampo(Vendedor vendedor)
         {
@@ -55,6 +66,8 @@ namespace SegundoParcial.UI.Registros
             RetencionPorcentajeNumericUpDown.Value = Convert.ToDecimal(vendedor.RetencionPorcentaje);
             retencionCalculoTextBox.Text = Convert.ToString(vendedor.RetencionCalculo);
             FechaDataTimePicker.Value = vendedor.Fecha;
+            this.Detalle = vendedor.Meta;
+            CargarGrid();
         }
         private bool Validar()
         {
@@ -75,18 +88,32 @@ namespace SegundoParcial.UI.Registros
                 errorProvider.SetError(RetencionPorcentajeNumericUpDown, "Este Campo No puede Ser Cero");
                 paso = false;
             }
+            if (this.Detalle.Count == 0)
+            {
+                errorProvider.SetError(CuotatextBox, "Debe Agregar uno o mas Cuotas");
+                CuotatextBox.Focus();
+                paso = false;
+            }
 
+            return paso;
+        }
+        public bool ValidarRemover()
+        {
+            bool paso = true;
+            if (DetalledataGridView.SelectedRows == null)
+            {
+                paso = false;
+            }
             return paso;
         }
         private bool ExisteEnLaBaseDeDatos()
         {
-            repositorio = new RepositorioBase<Vendedor>();
-            Vendedor vendedor = repositorio.Buscar((int)vendedorIDNumericUpDown.Value);
+            Vendedor vendedor = VendedorBLL.Buscar((int)vendedorIDNumericUpDown.Value);
             return (vendedor != null);
         }
         private void GuardarButton_Click(object sender, EventArgs e)
         {
-            repositorio = new RepositorioBase<Vendedor>();
+            
             Vendedor vendedor;
             bool paso = false;
             if (!Validar())
@@ -94,14 +121,15 @@ namespace SegundoParcial.UI.Registros
 
             vendedor = LlenaClase();
             if (vendedorIDNumericUpDown.Value == 0)
-                paso = repositorio.Guardar(vendedor);
+                paso = VendedorBLL.Guardar(vendedor);
             else
             {
                 if (!ExisteEnLaBaseDeDatos())
                 {
+                    MessageBox.Show("No Se Puedo Modificar un Vendedor Inexistente!!", "Fallo!!!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                paso = repositorio.Modificar(vendedor);
+                paso = VendedorBLL.Modificar(vendedor);
             }
             if (paso)
             {
@@ -114,7 +142,6 @@ namespace SegundoParcial.UI.Registros
 
         private void EliminarButton_Click(object sender, EventArgs e)
         {
-            repositorio = new RepositorioBase<Vendedor>();
             errorProvider.Clear();
             int id;
             int.TryParse(vendedorIDNumericUpDown.Text, out id);
@@ -124,7 +151,7 @@ namespace SegundoParcial.UI.Registros
                 errorProvider.SetError(vendedorIDNumericUpDown, "No puedes Borrar Un Vendedor Inexistente");
                 return;
             }
-            if (repositorio.Eliminar(id))
+            if (VendedorBLL.Eliminar(id))
             {
                 Limpiar();
                 MessageBox.Show("Vendedor Eliminado!!", "Exito!!!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -134,11 +161,9 @@ namespace SegundoParcial.UI.Registros
         private void BuscarButton_Click(object sender, EventArgs e)
         {
             int id;
-            repositorio = new RepositorioBase<Vendedor>();
             Vendedor vendedor = new Vendedor();
             int.TryParse(vendedorIDNumericUpDown.Text, out id);
-
-            vendedor = repositorio.Buscar(id);
+            vendedor = VendedorBLL.Buscar(id);
 
             if (vendedor != null)
             {
@@ -149,7 +174,22 @@ namespace SegundoParcial.UI.Registros
             else
                 MessageBox.Show("Vendedor no Encontrado!!!", "Fallo!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
+        public bool ValidarAgregarMetas()
+        {
+            bool paso = true;
+            if (String.IsNullOrWhiteSpace(CuotatextBox.Text.Replace("-", "")))
+            {
+                errorProvider.SetError(CuotatextBox, "Debe Insertar Por lo menos una cuota");
+                CuotatextBox.Focus();
+                paso = false;
+            }
+            if(MetascomboBox1.SelectedValue== null)
+            {
+                errorProvider.SetError(MetascomboBox1, "Debe Agragar Por lo menos un tipo de metas");
+                paso = false;
+            }
+            return paso;
+        }
         private void SueldoNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             Double sueldo = Convert.ToDouble(sueldoNumericUpDown.Value);
@@ -172,7 +212,14 @@ namespace SegundoParcial.UI.Registros
             Double Total = sueldo * retencion;
             retencionCalculoTextBox.Text = Convert.ToString(Math.Round(Total, 3));
         }
+        public void LlenaComboBox()
+        {
+            RepositorioBase<Metas> repos = new RepositorioBase<Metas>();
+            MetascomboBox1.DataSource = repos.GetList(x => true);
+            MetascomboBox1.ValueMember = "MetaID";
+            MetascomboBox1.DisplayMember = "Descripcion";
 
+        }
         private void NombresTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsLetter(e.KeyChar))
@@ -192,6 +239,42 @@ namespace SegundoParcial.UI.Registros
                 e.Handled = true;
             }
 
+        }
+        private void MetasButtonClick_Click(object sender, EventArgs e)
+        {
+            RegistroDeMetas registroDeMetas = new RegistroDeMetas();
+            registroDeMetas.ShowDialog();
+            LlenaComboBox();
+        }
+
+        private void AddButtonClick_Click(object sender, EventArgs e)
+        {
+            if (DetalledataGridView.DataSource != null)
+                this.Detalle = (List<VendedorDetalle>)DetalledataGridView.DataSource;
+            if (!ValidarAgregarMetas())
+                return;
+
+            this.Detalle.Add(
+                new VendedorDetalle(
+                    ID: 0,
+                    VendedorID: (int)vendedorIDNumericUpDown.Value,
+                    Cuota: Convert.ToDouble(CuotatextBox.Text),
+                    MetaID: (int)MetascomboBox1.SelectedValue
+                    )
+               );
+            errorProvider.Clear();
+            CargarGrid();
+        }
+
+        private void RemoverFilarButton_Click(object sender, EventArgs e)
+        {
+            if (!ValidarRemover())
+                return;
+            if (DetalledataGridView.Rows.Count > 0 && DetalledataGridView.CurrentRow != null)
+            {
+                this.Detalle.RemoveAt(DetalledataGridView.CurrentRow.Index);
+                CargarGrid();
+            }
         }
     }
 }

@@ -16,7 +16,9 @@ namespace SegundoParcial.Entidades
         public float RetencionPorcentaje { get; set; }
         public String RetencionCalculo { get; set; }
         public DateTime Fecha { get; set; }
+        
 
+        public virtual List<VendedorDetalle> Meta { get; set; }
         public Vendedor()
         {
             VendedorID = 0;
@@ -25,6 +27,7 @@ namespace SegundoParcial.Entidades
             RetencionPorcentaje = 0;
             RetencionCalculo = string.Empty;
             Fecha = DateTime.Now;
+            Meta = new List<VendedorDetalle>();
         }
     }
 }
