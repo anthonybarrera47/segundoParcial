@@ -14,7 +14,6 @@ namespace SegundoParcial.UI.Registros
 {
     public partial class ConsultarVendedor : Form
     {
-
         RepositorioBase<Vendedor> repositorio;
         public ConsultarVendedor()
         {
@@ -31,7 +30,7 @@ namespace SegundoParcial.UI.Registros
             {
                 switch (FiltroComboBox.SelectedIndex)
                 {
-                    case 0: //Todo
+                    case 0: //Todo 
                         lista = repositorio.GetList(p => true);
                         break;
                     case 1: //Por ID
@@ -106,7 +105,6 @@ namespace SegundoParcial.UI.Registros
             //Validamos EL textBox para que en el momento de digitar Sueldo y Retenciones solo nos permita digitar numeros.
             if (FiltroComboBox.SelectedIndex == 3 || FiltroComboBox.SelectedIndex == 4 || FiltroComboBox.SelectedIndex == 5)
             {
-                String cadena = CriterioTextBox.Text;
                 if (e.KeyChar == 8)
                 {
                     e.Handled = false;
@@ -114,7 +112,6 @@ namespace SegundoParcial.UI.Registros
                 }
                 bool IsDec = false;
                 int nroDec = 0;
-
                 for (int x = 0; x < CriterioTextBox.Text.Length; x++)
                 {
                     if (CriterioTextBox.Text[x] == '.')
@@ -179,7 +176,12 @@ namespace SegundoParcial.UI.Registros
             }
             return paso;
         }
-
-
+        private void FiltroComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(FiltroComboBox.SelectedIndex>0)
+                CriterioTextBox.Enabled = true;
+            else
+                CriterioTextBox.Enabled = false;
+        }
     }
 }

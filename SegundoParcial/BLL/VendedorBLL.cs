@@ -17,7 +17,6 @@ namespace SegundoParcial.BLL
         {
             repositorio = new RepositorioBase<Metas>();
             bool paso = false;
-            
             Contexto db = new Contexto();
             try
             {
@@ -27,11 +26,7 @@ namespace SegundoParcial.BLL
                     cuota.Cuota -= item.Cuota;
                 }
                 if (db.Vendedor.Add(vendedor) != null)
-                {
-                    db.SaveChanges();
-                    paso = true;
-                }
-
+                      paso = db.SaveChanges() > 0;
             }
             catch (Exception)
             {throw;}
@@ -53,19 +48,27 @@ namespace SegundoParcial.BLL
                     if (!vendedor.Meta.Exists(d => d.ID == item.ID))
                     {
                         cuota.Cuota += item.Cuota;
+                        db.Entry(item).State = EntityState.Deleted;
                     }
-                    db.Entry(item).State = EntityState.Deleted;
+                    
                 }
                 foreach (var item in vendedor.Meta)
                 {
-                    var estado = (item.ID == 0) ? EntityState.Added : EntityState.Modified;
-                    db.Entry(item).State = estado;
+                    var estado = System.Data.Entity.EntityState.Unchanged;
+                    /*var estado = (item.ID == 0) ? EntityState.Added : EntityState.Modified;
+                    db.Entry(item).State = estado;*/
+                    if (item.ID == 0)
+                    {
+                        var cuota = db.Meta.Find(item.MetaID);
+                        cuota.Cuota -= item.Cuota;
+                        estado = EntityState.Added;
+                    } 
+                    else
+                        estado = EntityState.Modified;
+                    db.Entry(item).State = estado;    
                 }
                 db.Entry(vendedor).State = EntityState.Modified;
-                if (db.SaveChanges() > 0)
-                {
-                    paso = true;
-                }
+                paso = db.SaveChanges() > 0;  
             }
             catch (Exception)
             { throw; }

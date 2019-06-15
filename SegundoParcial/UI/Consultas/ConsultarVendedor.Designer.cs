@@ -101,6 +101,7 @@
             this.FiltroComboBox.Size = new System.Drawing.Size(166, 24);
             this.FiltroComboBox.TabIndex = 5;
             this.FiltroComboBox.ValueMember = "0";
+            this.FiltroComboBox.SelectedIndexChanged += new System.EventHandler(this.FiltroComboBox_SelectedIndexChanged);
             this.FiltroComboBox.TextChanged += new System.EventHandler(this.FiltroComboBox_TextChanged);
             // 
             // label3
@@ -135,6 +136,7 @@
             this.ConsultaVendedoresDataGridView.Location = new System.Drawing.Point(12, 111);
             this.ConsultaVendedoresDataGridView.Name = "ConsultaVendedoresDataGridView";
             this.ConsultaVendedoresDataGridView.ReadOnly = true;
+            this.ConsultaVendedoresDataGridView.RowHeadersWidth = 51;
             this.ConsultaVendedoresDataGridView.RowTemplate.Height = 24;
             this.ConsultaVendedoresDataGridView.Size = new System.Drawing.Size(840, 329);
             this.ConsultaVendedoresDataGridView.TabIndex = 10;

@@ -33,7 +33,6 @@ namespace SegundoParcial.UI.Registros
             this.Detalle = new List<VendedorDetalle>();
             CargarGrid();
         }
-
         private void NuevoButton_Click(object sender, EventArgs e)
         {
             Limpiar();
@@ -72,7 +71,6 @@ namespace SegundoParcial.UI.Registros
         private bool Validar()
         {
             bool paso = true;
-
             if (String.IsNullOrWhiteSpace(NombresTextBox.Text))
             {
                 errorProvider.SetError(NombresTextBox, "Este Campo No puede Estar Vacio!!");
@@ -94,16 +92,13 @@ namespace SegundoParcial.UI.Registros
                 CuotatextBox.Focus();
                 paso = false;
             }
-
             return paso;
         }
         public bool ValidarRemover()
         {
             bool paso = true;
             if (DetalledataGridView.SelectedRows == null)
-            {
                 paso = false;
-            }
             return paso;
         }
         private bool ExisteEnLaBaseDeDatos()
@@ -113,13 +108,10 @@ namespace SegundoParcial.UI.Registros
         }
         private void GuardarButton_Click(object sender, EventArgs e)
         {
-            
-            Vendedor vendedor;
-            bool paso = false;
             if (!Validar())
                 return;
-
-            vendedor = LlenaClase();
+            Vendedor vendedor = LlenaClase();
+            bool paso = false;
             if (vendedorIDNumericUpDown.Value == 0)
                 paso = VendedorBLL.Guardar(vendedor);
             else
@@ -133,8 +125,8 @@ namespace SegundoParcial.UI.Registros
             }
             if (paso)
             {
-                MessageBox.Show("Vendedor Guardado!!", "Exito!!!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Limpiar();
+                MessageBox.Show("Vendedor Guardado!!", "Exito!!!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 MessageBox.Show("No Se Pudo Guardar!!", "Fallo!!!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -160,10 +152,8 @@ namespace SegundoParcial.UI.Registros
 
         private void BuscarButton_Click(object sender, EventArgs e)
         {
-            int id;
-            Vendedor vendedor = new Vendedor();
-            int.TryParse(vendedorIDNumericUpDown.Text, out id);
-            vendedor = VendedorBLL.Buscar(id);
+            int.TryParse(vendedorIDNumericUpDown.Text, out int ID);
+            Vendedor vendedor  = VendedorBLL.Buscar(ID);
 
             if (vendedor != null)
             {
@@ -194,14 +184,11 @@ namespace SegundoParcial.UI.Registros
         {
             Double sueldo = Convert.ToDouble(sueldoNumericUpDown.Value);
             float retencion = Convert.ToSingle(RetencionPorcentajeNumericUpDown.Value);
-
             retencion /= 100;
-
             Double Total = sueldo * retencion;
             retencionCalculoTextBox.Text = Convert.ToString(Math.Round(Total, 3));
 
         }
-
         private void RetencionPorcentajeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             Double sueldo = Convert.ToDouble(sueldoNumericUpDown.Value);
@@ -253,7 +240,6 @@ namespace SegundoParcial.UI.Registros
                 this.Detalle = (List<VendedorDetalle>)DetalledataGridView.DataSource;
             if (!ValidarAgregarMetas())
                 return;
-
             this.Detalle.Add(
                 new VendedorDetalle(
                     ID: 0,
@@ -265,7 +251,6 @@ namespace SegundoParcial.UI.Registros
             errorProvider.Clear();
             CargarGrid();
         }
-
         private void RemoverFilarButton_Click(object sender, EventArgs e)
         {
             if (!ValidarRemover())
